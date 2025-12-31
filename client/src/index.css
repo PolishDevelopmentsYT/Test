@@ -43,39 +43,52 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  /* Mathematical Blueprint Theme - White grid with geometric diagrams */
+  --radius: 0.5rem;
+  --background: oklch(100% 0 0); /* Pure white */
+  --foreground: oklch(20% 0 0); /* Deep black for text */
+  
+  --card: oklch(98% 0 0); /* Off-white for cards */
+  --card-foreground: oklch(20% 0 0);
+  
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(20% 0 0);
+  
+  /* Pastel cyan accent */
+  --primary: oklch(75% 0.12 200); /* Soft cyan */
+  --primary-foreground: oklch(20% 0 0);
+  
+  /* Soft pink secondary */
+  --secondary: oklch(80% 0.10 350); /* Soft pink */
+  --secondary-foreground: oklch(20% 0 0);
+  
+  --muted: oklch(95% 0 0); /* Very light gray */
+  --muted-foreground: oklch(50% 0 0);
+  
+  --accent: oklch(92% 0.02 200); /* Subtle cyan tint */
+  --accent-foreground: oklch(20% 0 0);
+  
+  --destructive: oklch(60% 0.20 25);
+  --destructive-foreground: oklch(100% 0 0);
+  
+  --border: oklch(90% 0 0); /* Light grid lines */
+  --input: oklch(90% 0 0);
+  --ring: oklch(75% 0.12 200);
+  
+  --sidebar-primary: oklch(75% 0.12 200);
+  --sidebar-primary-foreground: oklch(20% 0 0);
+  --sidebar: oklch(98% 0 0);
+  --sidebar-foreground: oklch(20% 0 0);
+  --sidebar-accent: oklch(92% 0.02 200);
+  --sidebar-accent-foreground: oklch(20% 0 0);
+  --sidebar-border: oklch(90% 0 0);
+  --sidebar-ring: oklch(75% 0.12 200);
+  
+  --chart-1: oklch(75% 0.12 200);
+  --chart-2: oklch(80% 0.10 350);
+  --chart-3: oklch(70% 0.15 280);
+  --chart-4: oklch(65% 0.18 160);
+  --chart-5: oklch(60% 0.20 40);
 }
 
 .dark {
@@ -119,6 +132,33 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Grid background pattern for mathematical blueprint aesthetic */
+    background-image: 
+      linear-gradient(to right, oklch(95% 0 0) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(95% 0 0) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-attachment: fixed;
+  }
+  
+  /* Typography - Bold massive headlines with monospace technical labels */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-6xl md:text-8xl;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+  }
+  
+  h2 {
+    @apply text-4xl md:text-6xl;
+    font-weight: 800;
+  }
+  
+  h3 {
+    @apply text-3xl md:text-4xl;
+    font-weight: 700;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
