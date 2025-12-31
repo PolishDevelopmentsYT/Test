@@ -361,6 +361,67 @@ export const appRouter = router({
         return db.getModelStats(input.modelId, input.startDate, input.endDate);
       }),
   }),
+
+  // External AI Model Search
+  aiSearch: router({
+    searchGoogle: publicProcedure
+      .input(z.object({
+        query: z.string(),
+      }))
+      .query(async ({ input }) => {
+        // This would integrate with search API in production
+        // For now, return placeholder structure
+        return {
+          results: [],
+          message: "External search integration - use search APIs to find AI models",
+        };
+      }),
+    
+    addDiscoveredModel: protectedProcedure
+      .input(z.object({
+        name: z.string(),
+        provider: z.string(),
+        modelId: z.string(),
+        description: z.string().optional(),
+        category: z.string().optional(),
+        source: z.string().optional(), // "google", "appstore", "playstore", "manual"
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const database = await db.getDb();
+        if (!database) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+        
+        const { aiModels } = await import("../drizzle/schema");
+        
+        // Check if model already exists
+        const { eq } = await import("drizzle-orm");
+        const existing = await database.select().from(aiModels)
+          .where(eq(aiModels.modelId, input.modelId))
+          .limit(1);
+        
+        if (existing.length > 0) {
+          return { success: false, message: "Model already exists", modelId: existing[0].id };
+        }
+        
+        // Add new model
+        const result = await database.insert(aiModels).values({
+          name: input.name,
+          provider: input.provider,
+          modelId: input.modelId,
+          description: input.description || `${input.name} by ${input.provider}`,
+          category: input.category || "chat",
+          eloRating: 1500,
+          isActive: 1,
+        });
+        
+        const insertId = (result as any).insertId || 0;
+        
+        return { 
+          success: true, 
+          message: "Model added successfully",
+          modelId: Number(insertId),
+        };
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

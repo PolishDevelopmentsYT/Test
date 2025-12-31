@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
-import { Swords, Trophy, History, Cpu, LogOut } from "lucide-react";
+import { Swords, Trophy, History, Cpu, LogOut, Search } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
@@ -27,6 +27,7 @@ export default function Navigation() {
     { path: "/leaderboard", label: "Leaderboard", icon: Trophy },
     { path: "/history", label: "History", icon: History },
     { path: "/models", label: "AI Models", icon: Cpu },
+    { path: "/ai-search", label: "Discover AI", icon: Search },
   ];
 
   return (

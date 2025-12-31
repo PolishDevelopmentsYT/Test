@@ -5,6 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import AISearch from "./pages/AISearch";
 import Arena from "./pages/Arena";
 import Leaderboard from "./pages/Leaderboard";
 import BattleHistory from "./pages/BattleHistory";
@@ -14,6 +15,7 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/ai-search"} component={AISearch} />
       <Route path={"/arena"} component={Arena} />
       <Route path={"/leaderboard"} component={Leaderboard} />
       <Route path={"/history"} component={BattleHistory} />
