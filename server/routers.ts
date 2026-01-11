@@ -229,6 +229,34 @@ export const appRouter = router({
       .query(async ({ input }) => {
         return db.getRecentBattles(input.limit);
       }),
+
+    compareResponses: publicProcedure
+      .input(z.object({
+        response1: z.string(),
+        response2: z.string(),
+        topic: z.number().optional(),
+      }))
+      .query(async ({ input }) => {
+        try {
+          const comparison = await invokeLLM({
+            messages: [
+              {
+                role: "system",
+                content: "You are an expert AI evaluator. Compare two responses and determine which is better.",
+              },
+              {
+                role: "user",
+                content: `Response 1: ${input.response1}\n\nResponse 2: ${input.response2}\n\nWhich is better and why? Be concise.`,
+              },
+            ],
+          });
+
+          const comparisonText = comparison.choices[0]?.message?.content || "Unable to generate comparison";
+          return { comparison: comparisonText };
+        } catch (error) {
+          return { comparison: "Unable to generate AI comparison at this time" };
+        }
+      }),
   }),
 
   // Voting System
